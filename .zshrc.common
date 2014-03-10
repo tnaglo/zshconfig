@@ -1,0 +1,310 @@
+############### backspace fix ########
+stty erase ^H
+
+############### colors ###############
+LS_COLORS=''
+LS_COLORS=$LS_COLORS:'no=00'        # Normal text       = Default foreground  
+LS_COLORS=$LS_COLORS:'fi=00'        # Regular file      = Default foreground
+LS_COLORS=$LS_COLORS:'di=01;36'     # Directory         = Bold, Yellow
+LS_COLORS=$LS_COLORS:'ln=35'        # Symbolic link     = Bold, Cyan
+LS_COLORS=$LS_COLORS:'pi=33'        # Named pipe        = Yellow
+LS_COLORS=$LS_COLORS:'so=01;35'     # Socket            = Bold, Magenta
+LS_COLORS=$LS_COLORS:'do=01;35'     # DO                = Bold, Magenta
+LS_COLORS=$LS_COLORS:'bd=01;37'     # Block device      = Bold, Grey
+LS_COLORS=$LS_COLORS:'cd=34;43'     # Character device  = Bold, Grey
+LS_COLORS=$LS_COLORS:'ex=01'        # Executable file   = Bold, Green
+
+############### exports ###############
+export LC_CTYPE='en_US.UTF-8'
+export LANG='en_US.UTF-8'
+export APPEND_HISTORY
+export HISTFILE=~/.zsh_history
+export HISTSIZE=5000
+export SAVEHIST=5000
+export LS_COLORS
+export DIRSTACKSIZE=16
+
+############### setopts ###############
+setopt extended_glob
+setopt APPEND_HISTORY
+setopt AUTO_PARAM_SLASH
+setopt AUTO_PUSHD
+setopt BASH_AUTO_LIST
+setopt BEEP
+setopt FLOW_CONTROL
+setopt HIST_IGNORE_DUPS
+setopt HIST_FIND_NO_DUPS
+setopt LIST_TYPES
+setopt MARK_DIRS
+setopt NO_AUTO_MENU
+setopt NO_HIST_NO_STORE
+setopt NO_MENU_COMPLETE
+setopt NOTIFY
+setopt PROMPT_SUBST
+setopt RM_STAR_SILENT
+setopt TRANSIENT_RPROMPT
+setopt ZLE
+
+############### bindkeys ###############
+bindkey "\eOH" beginning-of-line
+bindkey "\e[1~" beginning-of-line
+bindkey "\e[H" beginning-of-line
+
+bindkey "\eOF" end-of-line
+bindkey "\e[4~" end-of-line
+bindkey "\e[F" end-of-line
+
+bindkey "\eOc" forward-word
+bindkey "\e[1;5C" forward-word
+bindkey "\eOC" forward-word
+bindkey "\eO5C" forward-word
+
+bindkey "\eOd" backward-word
+bindkey "\e[1;5D" backward-word
+bindkey "\eOD" backward-word
+bindkey "\eO5D" backward-word
+
+bindkey "\e[3~" delete-char-or-list
+bindkey "" delete-char-or-list
+
+bindkey "OM" accept-line
+
+bindkey "^A" beginning-of-line
+bindkey "^B" backward-char
+bindkey "^D" delete-char-or-list
+bindkey "^E" end-of-line
+bindkey "^F" forward-char
+bindkey "^G" send-break
+bindkey "^H" backward-delete-char
+bindkey "^I" expand-or-complete
+bindkey "^J" accept-line
+bindkey "^K" kill-line
+bindkey "^L" clear-screen
+bindkey "^M" accept-line
+bindkey "^N" down-line-or-history
+bindkey "^O" accept-line-and-down-history
+bindkey "^P" up-line-or-history
+bindkey "^Q" push-line
+bindkey "^R" history-incremental-search-backward
+bindkey "^S" history-incremental-search-forward
+bindkey "^T" transpose-chars
+bindkey "^U" kill-whole-line
+bindkey "^V" quoted-insert
+bindkey "^W" backward-kill-word
+
+bindkey "^[[A" history-search-backward
+bindkey "^[[B" history-search-forward
+
+
+############### aliases ############### 
+alias rm='rm -i'
+alias mv='mv -i'
+alias cp='cp -i'
+
+alias ls='ls --color=yes -F'
+alias l='ls -alh'
+alias ll='ls -lh'
+alias ..='cd ..'
+alias ...='cd ..; cd ..'
+alias cdd='cd -' # goto last dir cd'ed from
+alias ps='ps -aufxw'
+alias z='vim ~/.zshrc && source ~/.zshrc'
+
+# screen
+alias sls='screen -ls'
+alias sr='screen -dRR'
+alias ss='screen -S'
+alias sx='screen -x'
+
+# git
+alias g='git status'
+alias gx='git checkout'
+alias gf='git fetch'
+alias gp='git pull'
+alias gP='git push'
+alias gm='git merge'
+alias gmm='git merge master'
+alias ga='git add'
+alias gaa='git add -A'
+alias gcm='git commit'
+alias gcma='git commit --amend'
+alias gd='git diff --color'
+alias gdc='git diff --cached'
+alias gdw='git diff -w'
+alias gb='git branch -vv'
+alias gba='git branch -avv'
+alias gl='git log --stat --color'
+alias glp='git log -p --color'
+alias glpw='git log -p -w --color'
+alias gr='git rebase'
+alias grc='git rebase --continue'
+alias gra='git rebase --abort'
+alias grs='git rebase --skip'
+alias grom='git rebase origin/master'
+alias gsu='git submodule update'
+
+# marco project
+alias i='cd /home/marco/website/frontend/img'
+alias c='cd /home/marco/website/src/css'
+alias j='cd /home/marco/website/src/js'
+alias m='cd /home/marco/website'
+
+############### functions ###############
+
+# git
+function gri() {
+  if [[ -z "$1" ]]; then
+    git rebase -i --autosquash `git merge-base master HEAD`
+  else
+    git rebase -i --autosquash HEAD~$1
+  fi
+}
+
+############### modules ################
+autoload colors zsh/terminfo
+if [[ "$terminfo[colors]" -ge 8 ]]; then
+    colors
+fi
+for color in RED GREEN YELLOW BLUE MAGENTA CYAN WHITE; do
+    eval PR_$color='%{$terminfo[bold]$fg[${(L)color}]%}'
+    eval PR_LIGHT_$color='%{$fg[${(L)color}]%}'
+    (( count = $count + 1 ))
+done
+PR_NO_COLOUR="%{$terminfo[sgr0]%}"
+autoload -U compinit promptinit zargs
+compinit -C
+promptinit
+
+# Set default completion to look through all files, then 
+# the command history.
+
+compctl -D -f + -H 0 '' -X '(No file found; using history)'
+compctl -o setopt
+compctl -v echo export
+compctl -z -P '%' bg
+compctl -j -P '%' fg jobs disown
+compctl -j -P '%' + -s '`ps -x | tail +2 | cut -c1-5`' wait
+compctl -A shift
+compctl -c type whence where which whereis killall man apropos
+
+zstyle ':completion:*' completer _expand _complete _complete:-extended _prefix
+
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*:options' description 'yes'
+zstyle ':completion:*:options' auto-description '%d'
+zstyle ':completion:*:correct:*' menu yes select
+zstyle ':completion:*:correct:*' max-errors 2 numeric
+zstyle ':completion:*:approximate:*' max-errors 2 numeric
+zstyle ':completion:*:correct:*' insert-unambiguous true
+zstyle ':completion:*:correct:*' original true
+zstyle ':completion:*:expand:*' group-order all-expansions expansions
+zstyle ':completion:*:functions' ignored-patterns '(_*|pre(cmd|exec))'
+zstyle ':completion:lappr:*' completer _approximate
+zstyle ':completion:lappr:*:approximate:*' max-errors 3 numeric
+zstyle ':completion:lamatch:*' completer _all_matches
+zstyle ':completion:lamatch:*' old-matches only
+zstyle ':completion:lhist:*' completer _history
+zstyle ':completion:*:match:*' match-original non-empty-value
+zstyle ':completion:*' ambiguous true
+zstyle ':completion:*' glob true
+zstyle ':completion:*' word true
+
+zstyle ':completion:*:complete-extended:*' matcher-list \
+         'm:{a-z}={A-Z}' 'r:|[+._-]=*' # lowercase matches uppercase, 
+
+zstyle ':completion:*:history-words' stop yes
+zstyle ':completion:*:history-words' remove-all-dups yes
+zstyle ':completion:*:history-words' list false
+zstyle ':completion:*:history-words' menu yes
+
+zstyle ':completion:*' menu select=2
+zstyle ':completion:*' select-prompt '%SSelect:  lines: %L  matches: %M  [%p]'
+zstyle ':completion:*:manuals' separate-sections true
+
+zstyle ':completion:*:cd:*' tag-order \
+         local-directories directory-stack named-directories path-directories
+
+zstyle ':completion:*' verbose yes
+zstyle ':completion:*:descriptions' format \
+      "${PR_LIGHT_RED}completing %B%d%b%$PR_NO_COLOUR"
+zstyle ':completion:*:corrections' format "${PR_LIGHT_RED}%d (errors: %e)%}"
+zstyle ':completion:*:messages' format '%d'
+zstyle ':completion:*:warnings' format 'No matches for: %d'
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*' ignore-parents pwd parent ..
+zstyle ':completion:*' select-scroll -1
+zstyle ':completion:*' range 200:20
+zstyle ':completion:*' keep-prefix changed
+
+zstyle ':completion:*:warnings' format \
+      "$PR_LIGHT_RED}No matches for:$PR_NO_COLOUR %d"
+
+compdef _man man pinfo
+
+zstyle ':completion:*:-tilde-:*' group-order \
+         'named-directories' 'path-directories' 'users' 'expand'
+
+## Prevent CVS files/directories from being completed 
+zstyle ':completion:*:(all-|)files' ignored-patterns '(|*/)CVS' 
+zstyle ':completion:*:cd:*' ignored-patterns '(*/)#CVS' 
+
+# With commands like rm it's annoying if one gets offered the same filename
+# again even if it is already on the command line. To avoid that: 
+zstyle ':completion:*:rm:*' ignore-line yes 
+
+#menus
+zstyle ':completion:*:*:ssh:*' menu yes select
+zstyle ':completion:*:*:scp:*' menu yes select
+zstyle ':completion:*:*:ncftp:*' menu yes select
+zstyle ':completion:*:*:telnet:*' menu yes select
+
+# When completing process IDs I normally want to fall into menu selection, too: 
+zstyle ':completion:*:kill:*' command 'ps -U $USER -ww -O pid,%cpu,tty,cputime,cmd'
+zstyle ':completion:*:kill:*' insert-ids single
+zstyle ':completion:*:*:kill:*' menu yes select
+zstyle ':completion:*:kill:*' force-list always 
+
+# when completing inside array or association subscripts, the array elements are more useful than parameters so complete them first: 
+zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters  
+
+# If you end up using a directory as argument, this will remove the trailing slash (usefull in ln) 
+zstyle ':completion:*' squeeze-slashes true 
+
+# color completion
+zstyle ':completion:*:*:kill:*:processes' list-colors "=(#b) #([0-9]#)*=36=31" 
+
+# Ignore completion functions for commands you don't have: 
+zstyle ':completion:*:functions' ignored-patterns '_*' 
+
+compctl -s '$(groups)' + -k groups newgrp
+
+compctl -f -x 'p[1], p[2] C[-1,-*]' -k groups -- chgrp
+
+compctl -f -x 'p[1] n[-1,.], p[2] C[-1,-*] n[-1,.]' -k groups - \
+	'p[1], p[2] C[-1,-*]' -u -S '.' -q -- chown
+
+compctl -g "*.bz2" + -g "*(-/) .*(-/)" bunzip2
+compctl -g "*.rpm" + -g "*(-/) .*(-/)" rpm2cpio rpm
+compctl -g "*.c" + -g "*(-/) .*(-/)" gcc cc
+compctl -g "*.cc *.CC *.cpp *.C" + -g "*(-/) .*(-/)" g++ CC
+compctl -g "*.gr" + -g "*(-/) .*(-/)" groff
+compctl -g "*.gz" + -g "*(-/) .*(-/)" gunzip
+compctl -g "*.gz *.Z *.zip" + -g "*(-/) .*(-/)" zless zgrep
+compctl -g "*.zip" + -g "*(-/) .*(-/)" unzip
+compctl -g "*.Z" + -g "*(-/) .*(-/)" uncompress
+compctl -g "*.tar *.tgz *.tz *.tar.Z *.tar.bz2 *.tZ *.tar.gz" \
+	+ -g "*(-/) .*(-/)" tar
+compctl -g "*.html *.htm" + -g "*(-/) .*(-/)" + -H 0 ''\
+	lynx wget links w3m
+compctl -g "*(-/) .*(-/)" cd rmdir
+
+source ~/.zsh/git-prompt/zshrc.sh
+
+ZSH_THEME_GIT_PROMPT_CONFLICTS="%{$fg_bold[red]%}✖"
+ZSH_THEME_GIT_PROMPT_CHANGED="%{$fg_bold[blue]%}✚"
+
+setopt promptsubst
+setopt promptpercent
+PROMPT='
+%{$fg[magenta]%}%n%{$reset_color%}@%{$fg[yellow]%}%m%{$reset_color%}:%{$fg_bold[green]%}%~%{$reset_color%} $(git_super_status)
+> '
