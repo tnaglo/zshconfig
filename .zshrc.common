@@ -45,7 +45,7 @@ setopt RM_STAR_SILENT
 setopt TRANSIENT_RPROMPT
 setopt ZLE
 
-############### bindkeys ###############
+############### bindkeys ##############
 bindkey "\eOH" beginning-of-line
 bindkey "\e[1~" beginning-of-line
 bindkey "\e[H" beginning-of-line
@@ -95,8 +95,7 @@ bindkey "^W" backward-kill-word
 bindkey "^[[A" history-search-backward
 bindkey "^[[B" history-search-forward
 
-
-############### aliases ############### 
+############### aliases ###############
 alias rm='rm -i'
 alias mv='mv -i'
 alias cp='cp -i'
@@ -108,7 +107,7 @@ alias ..='cd ..'
 alias ...='cd ..; cd ..'
 alias cdd='cd -' # goto last dir cd'ed from
 alias ps='ps -aufxw'
-alias z='vim ~/.zshrc && source ~/.zshrc'
+alias z='vim ~/.zsh/.zshrc.common && source ~/.zshrc'
 
 # screen
 alias sls='screen -ls'
@@ -129,7 +128,7 @@ alias gaa='git add -A'
 alias gcm='git commit'
 alias gcma='git commit --amend'
 alias gd='git diff --color'
-alias gdc='git diff --cached'
+alias gdc='git diff --color --cached'
 alias gdw='git diff -w'
 alias gb='git branch -vv'
 alias gba='git branch -avv'
@@ -149,7 +148,7 @@ alias c='cd /home/marco/website/src/css'
 alias j='cd /home/marco/website/src/js'
 alias m='cd /home/marco/website'
 
-############### functions ###############
+############### functions #############
 
 # git
 function gri() {
@@ -160,7 +159,7 @@ function gri() {
   fi
 }
 
-############### modules ################
+############### modules ###############
 autoload colors zsh/terminfo
 if [[ "$terminfo[colors]" -ge 8 ]]; then
     colors
@@ -298,6 +297,8 @@ compctl -g "*.html *.htm" + -g "*(-/) .*(-/)" + -H 0 ''\
 	lynx wget links w3m
 compctl -g "*(-/) .*(-/)" cd rmdir
 
+
+############### git prompt ###########
 source ~/.zsh/git-prompt/zshrc.sh
 
 ZSH_THEME_GIT_PROMPT_CONFLICTS="%{$fg_bold[red]%}✖"
