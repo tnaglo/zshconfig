@@ -108,6 +108,7 @@ alias ...='cd ..; cd ..'
 alias cdd='cd -' # goto last dir cd'ed from
 alias ps='ps -aufxw'
 alias z='vim ~/.zsh/.zshrc.common && source ~/.zshrc'
+alias vim='vim -o'
 
 # screen
 alias sls='screen -ls'
