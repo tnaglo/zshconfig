@@ -1,5 +1,5 @@
 ############### backspace fix ########
-stty erase ^H
+stty erase 
 
 ############### colors ###############
 LS_COLORS=''
