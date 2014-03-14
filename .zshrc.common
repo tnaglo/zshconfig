@@ -142,12 +142,6 @@ alias grs='git rebase --skip'
 alias grom='git rebase origin/master'
 alias gsu='git submodule update'
 
-# marco project
-alias i='cd /home/marco/website/frontend/img'
-alias c='cd /home/marco/website/src/css'
-alias j='cd /home/marco/website/src/js'
-alias m='cd /home/marco/website'
-
 ############### functions #############
 
 # git
