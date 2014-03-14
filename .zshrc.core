@@ -3,7 +3,7 @@ stty erase ^H
 
 ############### colors ###############
 LS_COLORS=''
-LS_COLORS=$LS_COLORS:'no=00'        # Normal text       = Default foreground  
+LS_COLORS=$LS_COLORS:'no=00'        # Normal text       = Default foreground
 LS_COLORS=$LS_COLORS:'fi=00'        # Regular file      = Default foreground
 LS_COLORS=$LS_COLORS:'di=01;36'     # Directory         = Bold, Yellow
 LS_COLORS=$LS_COLORS:'ln=35'        # Symbolic link     = Bold, Cyan
@@ -169,7 +169,7 @@ autoload -U compinit promptinit zargs
 compinit -C
 promptinit
 
-# Set default completion to look through all files, then 
+# Set default completion to look through all files, then
 # the command history.
 
 compctl -D -f + -H 0 '' -X '(No file found; using history)'
@@ -204,7 +204,7 @@ zstyle ':completion:*' glob true
 zstyle ':completion:*' word true
 
 zstyle ':completion:*:complete-extended:*' matcher-list \
-         'm:{a-z}={A-Z}' 'r:|[+._-]=*' # lowercase matches uppercase, 
+         'm:{a-z}={A-Z}' 'r:|[+._-]=*' # lowercase matches uppercase,
 
 zstyle ':completion:*:history-words' stop yes
 zstyle ':completion:*:history-words' remove-all-dups yes
@@ -238,13 +238,13 @@ compdef _man man pinfo
 zstyle ':completion:*:-tilde-:*' group-order \
          'named-directories' 'path-directories' 'users' 'expand'
 
-## Prevent CVS files/directories from being completed 
-zstyle ':completion:*:(all-|)files' ignored-patterns '(|*/)CVS' 
-zstyle ':completion:*:cd:*' ignored-patterns '(*/)#CVS' 
+## Prevent CVS files/directories from being completed
+zstyle ':completion:*:(all-|)files' ignored-patterns '(|*/)CVS'
+zstyle ':completion:*:cd:*' ignored-patterns '(*/)#CVS'
 
 # With commands like rm it's annoying if one gets offered the same filename
-# again even if it is already on the command line. To avoid that: 
-zstyle ':completion:*:rm:*' ignore-line yes 
+# again even if it is already on the command line. To avoid that:
+zstyle ':completion:*:rm:*' ignore-line yes
 
 #menus
 zstyle ':completion:*:*:ssh:*' menu yes select
@@ -252,23 +252,23 @@ zstyle ':completion:*:*:scp:*' menu yes select
 zstyle ':completion:*:*:ncftp:*' menu yes select
 zstyle ':completion:*:*:telnet:*' menu yes select
 
-# When completing process IDs I normally want to fall into menu selection, too: 
+# When completing process IDs I normally want to fall into menu selection, too:
 zstyle ':completion:*:kill:*' command 'ps -U $USER -ww -O pid,%cpu,tty,cputime,cmd'
 zstyle ':completion:*:kill:*' insert-ids single
 zstyle ':completion:*:*:kill:*' menu yes select
-zstyle ':completion:*:kill:*' force-list always 
+zstyle ':completion:*:kill:*' force-list always
 
-# when completing inside array or association subscripts, the array elements are more useful than parameters so complete them first: 
-zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters  
+# when completing inside array or association subscripts, the array elements are more useful than parameters so complete them first:
+zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
 
-# If you end up using a directory as argument, this will remove the trailing slash (usefull in ln) 
-zstyle ':completion:*' squeeze-slashes true 
+# If you end up using a directory as argument, this will remove the trailing slash (usefull in ln)
+zstyle ':completion:*' squeeze-slashes true
 
 # color completion
-zstyle ':completion:*:*:kill:*:processes' list-colors "=(#b) #([0-9]#)*=36=31" 
+zstyle ':completion:*:*:kill:*:processes' list-colors "=(#b) #([0-9]#)*=36=31"
 
-# Ignore completion functions for commands you don't have: 
-zstyle ':completion:*:functions' ignored-patterns '_*' 
+# Ignore completion functions for commands you don't have:
+zstyle ':completion:*:functions' ignored-patterns '_*'
 
 compctl -s '$(groups)' + -k groups newgrp
 
