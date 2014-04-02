@@ -106,7 +106,7 @@ alias ll='ls -lh'
 alias ..='cd ..'
 alias ...='cd ..; cd ..'
 alias cdd='cd -' # goto last dir cd'ed from
-alias ps='ps -aufxw'
+alias ps='ps aufxw'
 alias z='vim ~/.zsh/.zshrc.core && source ~/.zshrc'
 alias vim='vim -o'
 
