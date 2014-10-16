@@ -302,5 +302,5 @@ ZSH_THEME_GIT_PROMPT_CHANGED="%{$fg_bold[blue]%}✚"
 setopt promptsubst
 setopt promptpercent
 PROMPT='
-%{$fg[magenta]%}%n%{$reset_color%}@%{$fg[yellow]%}%m%{$reset_color%}:%{$fg_bold[green]%}%~%{$reset_color%} $(git_super_status)
+%{$fg[magenta]%}%n%{$reset_color%}@%{$fg[yellow]%}%m%{$reset_color%}: %{$fg_bold[green]%}%~%{$reset_color%} $(git_super_status)
 > '
