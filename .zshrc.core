@@ -102,13 +102,13 @@ alias cp='cp -i'
 
 UNAMESTR=`uname`
 
-if [ $UNAMESTR=='Darwin' ]
+if [ $UNAMESTR = 'Darwin' ]
 then
-alias ls='ls -F'
-alias ps='ps auxw'
+  alias ls='ls -F'
+  alias ps='ps auxw'
 else
-alias ls='ls --color=yes -F'
-alias ps='ps aufwx'
+  alias ls='ls --color=yes -F'
+  alias ps='ps aufwx'
 fi
 alias l='ls -alh'
 alias ll='ls -lh'
