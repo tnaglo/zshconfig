@@ -10,4 +10,4 @@ Zsh 4.3+ Config directory
 
  3. Source the config files in your `.zshrc`
          
-         source ~/.zsh/.zshrc.core
+         cd ~ && echo "source ~/.zsh/.zshrc.core" > .zshrc
