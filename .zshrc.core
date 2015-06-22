@@ -148,7 +148,7 @@ alias gsu='git submodule update'
 # git
 function gri() {
   if [[ -z "$1" ]]; then
-    git rebase -i --autosquash `git merge-base master HEAD`
+    git rebase -i
   else
     git rebase -i --autosquash HEAD~$1
   fi
