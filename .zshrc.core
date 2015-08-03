@@ -100,13 +100,21 @@ alias rm='rm -i'
 alias mv='mv -i'
 alias cp='cp -i'
 
-alias ls='ls --color=yes -F'
+UNAMESTR=`uname`
+
+if [ $UNAMESTR = 'Darwin' ]
+then
+  alias ls='ls -F'
+  alias ps='ps auxw'
+else
+  alias ls='ls --color=yes -F'
+  alias ps='ps aufwx'
+fi
 alias l='ls -alh'
 alias ll='ls -lh'
 alias ..='cd ..'
 alias ...='cd ..; cd ..'
 alias cdd='cd -' # goto last dir cd'ed from
-alias ps='ps aufxw'
 alias z='vim ~/.zsh/.zshrc.core && source ~/.zshrc'
 alias vim='vim -o'
 
@@ -302,6 +310,33 @@ ZSH_THEME_GIT_PROMPT_CHANGED="%{$fg_bold[blue]%}✚"
 
 setopt promptsubst
 setopt promptpercent
+if [ "$EUID" -ne 0 ]
+then
 PROMPT='
 %{$fg[magenta]%}%n%{$reset_color%}@%{$fg[yellow]%}%m%{$reset_color%}: %{$fg_bold[green]%}%~%{$reset_color%} $(git_super_status)
 > '
+else
+PROMPT='
+%{$fg[red]%}%n%{$reset_color%}@%{$fg[yellow]%}%m%{$reset_color%}: %{$fg_bold[green]%}%~%{$reset_color%} $(git_super_status)
+> '
+fi
+
+if [[ ${TERM} == "screen-bce" || ${TERM} == "screen" ]]; then
+  precmd () { print -Pn "\033k\033\134\033k%m[%1d]\033\134" }
+  preexec () { print -Pn "\033k\033\134\033k%m[$1]\033\134" }
+else
+  precmd () { print -Pn "\e]0;%n@%m: %~\a" }
+  preexec () { print -Pn "\e]0;%n@%m: $1\a" }
+fi
+
+h=()
+if [[ -r ~/.ssh/config ]]; then
+  h=($h ${${${(@M)${(f)"$(cat ~/.ssh/config)"}:#Host *}#Host }:#*[*?]*})
+fi
+if [[ -r ~/.ssh/known_hosts ]]; then
+  h=($h ${${${(f)"$(cat ~/.ssh/known_hosts{,2} || true)"}%%\ *}%%,*}) 2>/dev/null
+fi
+if [[ $#h -gt 0 ]]; then
+  zstyle ':completion:*:ssh:*' hosts $h
+  zstyle ':completion:*:slogin:*' hosts $h
+fi
