@@ -162,6 +162,9 @@ function gri() {
   fi
 }
 
+#zsh-completions
+fpath=(zsh-completions/src $fpath)
+
 ############### modules ###############
 autoload colors zsh/terminfo
 if [[ "$terminfo[colors]" -ge 8 ]]; then
