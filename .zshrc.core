@@ -54,15 +54,10 @@ bindkey "\eOF" end-of-line
 bindkey "\e[4~" end-of-line
 bindkey "\e[F" end-of-line
 
-bindkey "\eOc" forward-word
-bindkey "\e[1;5C" forward-word
-bindkey "\eOC" forward-word
-bindkey "\eO5C" forward-word
-
-bindkey "\eOd" backward-word
-bindkey "\e[1;5D" backward-word
-bindkey "\eOD" backward-word
-bindkey "\eO5D" backward-word
+bindkey "^[[1;3C" forward-word  # [Alt-RightArrow] - move forward one word
+bindkey '[C' forward-word       # [Alt-RightArrow] - move forward one word MacOS
+bindkey "^[[1;3D" backward-word # [Alt-LeftArrow] - move backward one word
+bindkey '[D' backward-word      # [Alt-LeftArrow] - move backward one word MacOS
 
 bindkey "\e[3~" delete-char-or-list
 bindkey "" delete-char-or-list
@@ -70,10 +65,8 @@ bindkey "" delete-char-or-list
 bindkey "OM" accept-line
 
 bindkey "^A" beginning-of-line
-bindkey "^B" backward-char
 bindkey "^D" delete-char-or-list
 bindkey "^E" end-of-line
-bindkey "^F" forward-char
 bindkey "^G" send-break
 bindkey "^H" backward-delete-char
 bindkey "^I" expand-or-complete
