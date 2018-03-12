@@ -1,5 +1,5 @@
 ############### backspace fix ########
-stty erase 
+#stty erase 
 
 ############### colors ###############
 LS_COLORS=''
@@ -65,7 +65,7 @@ bindkey "\eOD" backward-word
 bindkey "\eO5D" backward-word
 
 bindkey "\e[3~" delete-char-or-list
-bindkey "" delete-char-or-list
+#bindkey "" delete-char-or-list
 
 bindkey "OM" accept-line
 
