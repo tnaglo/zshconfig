@@ -129,6 +129,7 @@ alias ga='git add'
 alias gaa='git add -A'
 alias gcm='git commit'
 alias gcma='git commit --amend'
+alias gclb="git remote prune origin && git branch -vv | grep 'origin/.*: gone]' | awk '{print \$1}' | xargs git branch -d"
 alias gd='git diff --color'
 alias gdc='git diff --color --cached'
 alias gdw='git diff -w'
