@@ -309,11 +309,11 @@ setopt promptpercent
 if [ "$EUID" -ne 0 ]
 then
 PROMPT='
-%{$fg[magenta]%}%n%{$reset_color%}@%{$fg[yellow]%}%m%{$reset_color%}: %{$fg_bold[green]%}%~%{$reset_color%} $(git_super_status)
+%{$fg[magenta]%}%n%{$reset_color%}@%{$fg[yellow]%}%M%{$reset_color%}: %{$fg_bold[green]%}%~%{$reset_color%} $(git_super_status)
 > '
 else
 PROMPT='
-%{$fg[red]%}%n%{$reset_color%}@%{$fg[yellow]%}%m%{$reset_color%}: %{$fg_bold[green]%}%~%{$reset_color%} $(git_super_status)
+%{$fg[red]%}%n%{$reset_color%}@%{$fg[yellow]%}%M%{$reset_color%}: %{$fg_bold[green]%}%~%{$reset_color%} $(git_super_status)
 > '
 fi
 
