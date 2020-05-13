@@ -300,7 +300,7 @@ compctl -g "*(-/) .*(-/)" cd rmdir
 
 
 ############### git prompt ###########
-source ~/.zsh/git-prompt/zshrc.sh
+source ~/.zsh/zsh-git-prompt/zshrc.sh
 
 ZSH_THEME_GIT_PROMPT_CONFLICTS="%{$fg_bold[red]%}✖"
 ZSH_THEME_GIT_PROMPT_CHANGED="%{$fg_bold[blue]%}✚"
