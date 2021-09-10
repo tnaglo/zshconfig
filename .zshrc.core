@@ -302,6 +302,12 @@ compctl -g "*(-/) .*(-/)" cd rmdir
 ############### git prompt ###########
 source ~/.zsh/zsh-git-prompt/zshrc.sh
 
+############ kubectl completion ######
+source <(kubectl completion zsh)
+
+######## terraform completion #######
+complete -o nospace -C $(which terraform) terraform
+
 ZSH_THEME_GIT_PROMPT_CONFLICTS="%{$fg_bold[red]%}✖"
 ZSH_THEME_GIT_PROMPT_CHANGED="%{$fg_bold[blue]%}✚"
 
