@@ -1,5 +1,5 @@
 ############### backspace fix ########
-stty erase 
+stty erase '^?'
 
 ############### colors ###############
 LS_COLORS=''
@@ -68,8 +68,13 @@ bindkey "^A" beginning-of-line
 bindkey "^D" delete-char-or-list
 bindkey "^E" end-of-line
 bindkey "^G" send-break
-# bindkey "^H" backward-delete-char
-bindkey "^?" backward-delete-char
+
+# [Backspace] - delete backward
+bindkey -M emacs '^?' backward-delete-char
+bindkey -M viins '^?' backward-delete-char
+bindkey -M vicmd '^?' backward-delete-char
+bindkey '^?' backward-delete-char
+
 bindkey "^I" expand-or-complete
 bindkey "^J" accept-line
 bindkey "^K" kill-line
@@ -145,6 +150,9 @@ alias gra='git rebase --abort'
 alias grs='git rebase --skip'
 alias grom='git rebase origin/master'
 alias gsu='git submodule update'
+
+# alias ^H='stty erase ^H'
+# alias ^?='stty errase ^?'
 
 ############### functions #############
 
