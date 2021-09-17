@@ -1,6 +1,9 @@
 [submodule "zsh-completions"]
-	path = zsh-completions
+	path = plugins/zsh-completions
 	url = https://github.com/argo1984/zsh-completions.git
 [submodule "zsh-git-prompt"]
-	path = zsh-git-prompt
+	path = plugins/zsh-git-prompt
 	url = https://github.com/argo1984/zsh-git-prompt.git
+[submodule "plugins/kube-ps1"]
+	path = plugins/kube-ps1
+	url = https://github.com/jonmosco/kube-ps1.git

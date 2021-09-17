@@ -166,7 +166,7 @@ function gri() {
 }
 
 #zsh-completions
-fpath=(zsh-completions/src $fpath)
+fpath=(plugins/zsh-completions/src $fpath)
 
 ############### modules ###############
 autoload colors zsh/terminfo
@@ -308,10 +308,13 @@ compctl -g "*(-/) .*(-/)" cd rmdir
 
 
 ############### git prompt ###########
-source ~/.zsh/zsh-git-prompt/zshrc.sh
+source ~/.zsh/plugins/zsh-git-prompt/zshrc.sh
 
 ############ kubectl completion ######
 source <(kubectl completion zsh)
+
+############## kubectl ###############
+source ~/.zsh/plugins/kube-ps1/kube-ps1.sh
 
 ######## terraform completion #######
 complete -o nospace -C $(which terraform) terraform
