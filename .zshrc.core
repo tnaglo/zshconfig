@@ -112,16 +112,17 @@ fi
 alias l='ls -alh'
 alias ll='ls -lh'
 alias ..='cd ..'
-alias ...='cd ..; cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../../
 alias cdd='cd -' # goto last dir cd'ed from
 alias z='vim ~/.zsh/.zshrc.core && source ~/.zshrc'
 alias vim='vim -o'
 
 # screen
-alias sls='screen -ls'
-alias sr='screen -dRR'
-alias ss='screen -S'
-alias sx='screen -x'
+# alias sls='screen -ls'
+# alias sr='screen -dRR'
+# alias ss='screen -S'
+# alias sx='screen -x'
 
 # git
 alias g='git status'
@@ -150,6 +151,9 @@ alias gra='git rebase --abort'
 alias grs='git rebase --skip'
 alias grom='git rebase origin/master'
 alias gsu='git submodule update'
+
+alias devopsrepo='cd ~/xempusgit/plat/devops'
+alias managerrepo='cd ~/xempusgit/xbm/manager'
 
 # alias ^H='stty erase ^H'
 # alias ^?='stty errase ^?'
@@ -315,6 +319,11 @@ source <(kubectl completion zsh)
 
 ############## kubectl ###############
 source ~/.zsh/plugins/kube-ps1/kube-ps1.sh
+
+########### powerlevel 10k ###########
+source ~/.zsh/themes/powerlevel10k/powerlevel10k.zsh-theme
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.zsh/.p10k.zsh ]] || source ~/.zsh/.p10k.zsh
 
 ######## terraform completion #######
 complete -o nospace -C $(which terraform) terraform

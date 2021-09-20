@@ -7,3 +7,6 @@
 [submodule "plugins/kube-ps1"]
 	path = plugins/kube-ps1
 	url = https://github.com/jonmosco/kube-ps1.git
+[submodule "themes/powerlevel10k"]
+	path = themes/powerlevel10k
+	url = https://github.com/romkatv/powerlevel10k.git
