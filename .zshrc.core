@@ -317,9 +317,6 @@ source ~/.zsh/plugins/zsh-git-prompt/zshrc.sh
 if command -v kubectl > /dev/null; then
   ############ kubectl completion ######
   source <(kubectl completion zsh)
-
-  ############## kubectl ###############
-  source ~/.zsh/plugins/kube-ps1/kube-ps1.sh
 fi
 
 ########### powerlevel 10k ###########
